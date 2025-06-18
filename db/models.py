@@ -1,12 +1,4 @@
-from sqlalchemy import (
-    TIMESTAMP,
-    Column,
-    Date,
-    Float,
-    ForeignKey,
-    Integer,
-    String,
-)
+from sqlalchemy import TIMESTAMP, Column, Date, Float, ForeignKey, String
 from sqlalchemy.dialects import postgresql
 from sqlalchemy.orm import declarative_base, relationship
 from sqlalchemy.schema import CreateTable
@@ -20,7 +12,7 @@ class User(Base):
 
     user_id = Column(String, primary_key=True)
     country = Column(String)
-    loaded_at = Column(Date, default="2025-06-01")
+    # loaded_at = Column(Date, default="2025-06-01")
     # 1 user -> many events
     events = relationship("Event", back_populates="user")
 
@@ -29,7 +21,7 @@ class User(Base):
 class Event(Base):
     __tablename__ = "fact_events"
     # surrogate key
-    event_id = Column(Integer, primary_key=True, autoincrement=True)
+    event_id = Column(String, primary_key=True)
     event_time = Column(TIMESTAMP)
     user_id = Column(String, ForeignKey("dim_users.user_id"))
     event_type = Column(String)
@@ -37,7 +29,7 @@ class Event(Base):
     miles_amount = Column(Float)
     platform = Column(String)
     utm_source = Column(String)
-    loaded_at = Column(Date, default="2025-06-01")
+    # loaded_at = Column(Date, default="2025-06-01")
     # 1 event -> 1 user
     user = relationship("User", back_populates="events")
 

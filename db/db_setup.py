@@ -1,5 +1,6 @@
 import logging
 import os
+import uuid
 
 import pandas as pd
 from sqlalchemy import create_engine
@@ -35,7 +36,6 @@ try:
     logger.info("Starting DB setup...")
     # generates the DDLs to run against the db, generate all the tables
     Base.metadata.create_all(engine)
-
     df = pd.read_csv(config["path"])
     # keep only unique user_id+country combi
     user_df = df[["user_id", "country"]].drop_duplicates()
@@ -48,12 +48,12 @@ try:
         user = {
             "user_id": row["user_id"],
             "country": row["country"],
-            "updated_at": None,
         }
         user_records.append(user)
 
     for _, row in df.iterrows():
         event = {
+            "event_id": uuid.uuid4(),
             "event_time": row["event_time"],
             "event_type": row["event_type"],
             "user_id": row["user_id"],
@@ -61,7 +61,6 @@ try:
             "miles_amount": row["miles_amount"],
             "platform": row["platform"],
             "utm_source": row["utm_source"],
-            "updated_at": None,
         }
         event_records.append(event)
 
