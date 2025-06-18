@@ -1,0 +1,29 @@
+name: hm_metrics
+version: 1.0.0
+
+model-paths: ["models"]
+seed-paths: ["seeds"]
+
+profile: hm_metrics
+seeds:
+  hm_metrics:
+    column_types:
+      event_time: timestamp
+models:
+  hm_metrics:
+    bronze:
+      +materialized: table
+    silver:
+      +materialized: incremental
+    gold:
+      +materialized: incremental
+    datamarts:
+      user_growth_metrics:
+        +schema: metrics
+      user_retention:
+        +schema: metrics
+      user_interactions:
+        +schema: metrics
+      +materialized: view
+
+      # always run from /models
