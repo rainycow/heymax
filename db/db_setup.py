@@ -45,7 +45,11 @@ try:
     event_records = []
 
     for _, row in user_df.iterrows():
-        user = {"user_id": row["user_id"], "country": row["country"]}
+        user = {
+            "user_id": row["user_id"],
+            "country": row["country"],
+            "updated_at": None,
+        }
         user_records.append(user)
 
     for _, row in df.iterrows():
@@ -57,6 +61,7 @@ try:
             "miles_amount": row["miles_amount"],
             "platform": row["platform"],
             "utm_source": row["utm_source"],
+            "updated_at": None,
         }
         event_records.append(event)
 

@@ -26,6 +26,7 @@ class User(Base):
 
     user_id = Column(String, primary_key=True)
     country = Column(String)
+    loaded_at = Column(Date, default="2025-06-01")
     # 1 user -> many events
     events = relationship("Event", back_populates="user")
 
@@ -42,6 +43,7 @@ class Event(Base):
     miles_amount = Column(Float)
     platform = Column(String)
     utm_source = Column(String)
+    loaded_at = Column(Date, default="2025-06-01")
     # 1 event -> 1 user
     user = relationship("User", back_populates="events")
 
