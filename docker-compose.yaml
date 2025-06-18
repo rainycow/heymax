@@ -6,17 +6,20 @@ services:
       POSTGRES_PASSWORD: ${DB_PASS}
       POSTGRES_DB: ${DB_NAME}
     ports:
-      - ${DB_PORT}:${DB_PORT}
+      - 5440:5432
 
   db-init:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: db/Dockerfile
     depends_on:
       - db
     environment:
       DB_HOST: ${DB_HOST}
-      DB_PORT: ${DB_PORT}
+      DB_PORT: 5432
       DB_NAME: ${DB_NAME}
       DB_USER: ${DB_USER}
       DB_PASS: ${DB_PASS}
+
+ 
+        
