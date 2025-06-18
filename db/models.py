@@ -1,9 +1,3 @@
-# user
-# user_id, country, other user attributes like email etc.
-
-# event
-# event_time, user_id, event_type, transaction_category, miles_amount, platform, utm_source
-
 from sqlalchemy import (
     TIMESTAMP,
     Column,
@@ -34,7 +28,7 @@ class User(Base):
 # Events fact table
 class Event(Base):
     __tablename__ = "fact_events"
-
+    # surrogate key
     event_id = Column(Integer, primary_key=True, autoincrement=True)
     event_time = Column(TIMESTAMP)
     user_id = Column(String, ForeignKey("dim_users.user_id"))
