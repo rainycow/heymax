@@ -3,6 +3,7 @@
 """
 
 import os
+from datetime import timedelta
 
 from airflow.sdk import dag
 from cosmos import DbtTaskGroup, ExecutionConfig, ProfileConfig, ProjectConfig
@@ -34,14 +35,15 @@ profile_config = ProfileConfig(
 execution_config = ExecutionConfig(
     dbt_executable_path=DBT_EXECUTABLE_PATH,
 )
+default_args = {
+    "owner": "TY",
+    "schedule": "@daily",
+    "retries": 3,
+    "retry_delay": timedelta(minutes=5),
+}
 
 
-@dag(
-    schedule="@daily",
-    default_args={
-        "owner": OWNER,
-    },
-)
+@dag(default_args=default_args)
 def setup_db_using_dbt_dag():
     transform_data = DbtTaskGroup(
         group_id="transform_data",
