@@ -1,0 +1,7 @@
+# This file was automatically generated
+name: pgsql
+type: postgres
+options:
+  database: events_db
+  host: localhost
+  port: 5435
