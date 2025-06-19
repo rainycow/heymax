@@ -28,10 +28,6 @@ Here, we assign users into different cohorts according to their signup date. We 
 
 ## Charts
 
-<Dropdown data={countries} name=country value=country defaultValue='SG'>
-</Dropdown>
-
-
 <DataTable data={retention}>
     <Column id=signup_date/>
 	<Column id=country/>
@@ -52,7 +48,6 @@ d1_retention_rate, d7_retention_rate, d30_retention_rate,
 d60_retention_rate, d90_retention_rate 
 from 
 pgsql.retention
-where country like '${inputs.country.value}'
 order by cohort_date
 ```
 
@@ -60,3 +55,5 @@ order by cohort_date
 select distinct country
 from pgsql.growth_metrics_month
 ```
+
+<!-- dont parametrize -->

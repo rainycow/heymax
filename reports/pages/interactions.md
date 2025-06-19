@@ -6,12 +6,10 @@ title: User interactions
 Mapping between user interactions and event_type.
 ## Charts
 
-<Dropdown data={countries} name=country value=country defaultValue='SG'>
-</Dropdown>
 
 <SankeyDiagram 
-    data={interactions} 
-    title="User Interactions breakdown, {inputs.country.label}"  
+    data={interactions_sg} 
+    title="User Interactions breakdown for SG"  
     sourceCol=event_type 
     targetCol=transaction_category 
     valueCol=interactions 
@@ -28,22 +26,104 @@ Mapping between user interactions and event_type.
 }}
 />
 
+<SankeyDiagram 
+    data={interactions_my} 
+    title="User Interactions breakdown for MY"  
+    sourceCol=event_type 
+    targetCol=transaction_category 
+    valueCol=interactions 
+    percentCol=perc
+    nodeAlign=left
+    linkColor=base-content-muted
+    linkLabels=percent
+    nodeLabels=full
+    sort=true
+    echartsOptions={{
+    tooltip: {
+        trigger: "axis",
+    }
+}}
+/>
+<SankeyDiagram 
+    data={interactions_id} 
+    title="User Interactions breakdown for ID"  
+    sourceCol=event_type 
+    targetCol=transaction_category 
+    valueCol=interactions 
+    percentCol=perc
+    nodeAlign=left
+    linkColor=base-content-muted
+    linkLabels=percent
+    nodeLabels=full
+    sort=true
+    echartsOptions={{
+    tooltip: {
+        trigger: "axis",
+    }
+}}
+/>
+<SankeyDiagram 
+    data={interactions_th} 
+    title="User Interactions breakdown for TH"  
+    sourceCol=event_type 
+    targetCol=transaction_category 
+    valueCol=interactions 
+    percentCol=perc
+    nodeAlign=left
+    linkColor=base-content-muted
+    linkLabels=percent
+    nodeLabels=full
+    sort=true
+    echartsOptions={{
+    tooltip: {
+        trigger: "axis",
+    }
+}}
+/>
+<SankeyDiagram 
+    data={interactions_ph} 
+    title="User Interactions breakdown for PH"  
+    sourceCol=event_type 
+    targetCol=transaction_category 
+    valueCol=interactions 
+    percentCol=perc
+    nodeAlign=left
+    linkColor=base-content-muted
+    linkLabels=percent
+    nodeLabels=full
+    sort=true
+    echartsOptions={{
+    tooltip: {
+        trigger: "axis",
+    }
+}}
+/>
 
-Miles Earned dominates the user-interaction category in all markets. 
+The distribution of user interactions is very similar across the five markets, with Miles Earned dominating the user-interaction category in all markets. 
 
 
-```sql countries
-select distinct country
-from pgsql.growth_metrics_month
-```
-```sql user_cat
-select distinct user_category
-from pgsql.growth_metrics_month
-```
 
 
-```sql interactions
+```sql interactions_sg
 select * from pgsql.interactions
-where country like '${inputs.country.value}'
+where country='SG'
 ```
 
+
+```sql interactions_my
+select * from pgsql.interactions
+where country='MY'
+```
+
+```sql interactions_id
+select * from pgsql.interactions
+where country='ID'
+```
+```sql interactions_th
+select * from pgsql.interactions
+where country='TH'
+```
+```sql interactions_ph
+select * from pgsql.interactions
+where country='PH'
+```
