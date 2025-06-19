@@ -1,8 +1,5 @@
 """
 ### Run a dbt Core project as a task group with Cosmos
-
-Simple DAG showing how to run a dbt project as a task group, using
-an Airflow connection and injecting a variable into the dbt project.
 """
 
 import os
@@ -11,13 +8,13 @@ from airflow.sdk import dag
 from cosmos import DbtTaskGroup, ExecutionConfig, ProfileConfig, ProjectConfig
 from cosmos.profiles import PostgresUserPasswordProfileMapping
 
-YOUR_NAME = "ty"
+OWNER = "TY"
 CONNECTION_ID = "test"
 DB_NAME = "postgres"
 USER = "postgres"
 SCHEMA_NAME = "public"
 
-# path to the dbt_project
+# path to the dbt_project.yml
 DBT_PROJECT_PATH = f"{os.environ['AIRFLOW_HOME']}/dags/dbt"
 DBT_EXECUTABLE_PATH = f"{os.environ['AIRFLOW_HOME']}/dbt_venv/bin/dbt"
 
@@ -40,7 +37,10 @@ execution_config = ExecutionConfig(
 
 
 @dag(
-    params={"my_name": YOUR_NAME},
+    schedule="@daily",
+    default_args={
+        "owner": OWNER,
+    },
 )
 def setup_db_using_dbt_dag():
     transform_data = DbtTaskGroup(
