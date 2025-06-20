@@ -1,0 +1,23 @@
+version: 2
+
+models:
+  - name: dim_users_bronze
+    columns:
+      - name: user_id
+        tests:
+          - not_null
+          - unique
+
+  - name: fact_events_bronze
+    columns:
+      - name: event_type
+        tests:
+          - accepted_values:
+            values:
+              [
+                "miles_earned",
+                "like",
+                "share",
+                "reward_search",
+                "miles_redeemed",
+              ]
