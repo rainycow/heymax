@@ -1,0 +1,8 @@
+# models/sources.yml
+version: 2
+sources:
+  - name: public
+    schema: public
+    tables:
+      - name: fact_events
+      - name: dim_users
