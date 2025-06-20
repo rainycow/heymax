@@ -1,4 +1,4 @@
-SELECT *
+SELECT user_id, country, loaded_at
 FROM (
     SELECT *,
            ROW_NUMBER() OVER (PARTITION BY user_id, country ORDER BY loaded_at DESC) AS rn

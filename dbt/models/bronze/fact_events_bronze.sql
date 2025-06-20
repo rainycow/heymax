@@ -6,6 +6,7 @@ SELECT
     transaction_category,
     miles_amount,
     platform,
-    utm_source
+    utm_source,
+    '{{ run_started_at.strftime("%Y-%m-%d") }}' as loaded_at
 FROM
    {{ ref('event_stream') }}
