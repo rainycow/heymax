@@ -55,7 +55,6 @@ default_args = {
 def setup_db_using_dbt_dag():
     gen_uuid = PythonOperator(
         task_id="generate_uuid",
-        # provide_context=True,
         python_callable=generate_uuid,
     )
     transform_data = DbtTaskGroup(
