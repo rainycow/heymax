@@ -2,7 +2,7 @@ WITH first_seen AS (
     SELECT
         user_id,
         MIN(event_time::date) AS cohort_date
-    FROM {{ ref('fact_events_gold') }} fact
+    FROM {{ ref('fact_events_gold') }}
     GROUP BY user_id
 ),
 

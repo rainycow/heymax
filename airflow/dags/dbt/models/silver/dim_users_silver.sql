@@ -1,6 +1,12 @@
-SELECT
-    *, 
-    '{{ run_started_at.strftime("%Y-%m-%d") }}' as loaded_at
+{{
+    config(
+        materialized='incremental',
+        unique_key='user_id'
+    )
+}}
+
+SELECT DISTINCT
+    *
 FROM
     {{ ref('dim_users_bronze') }} bronze
 
@@ -10,7 +16,7 @@ WHERE
         SELECT
             max(loaded_at)
         FROM
-            {{this}}
+            {{ this }}
     )
 
 {% endif %}

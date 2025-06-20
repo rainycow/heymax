@@ -1,9 +1,7 @@
-{{
-    config(
-        materialized='incremental',
-        unique_key='event_id'
-    )
-}}
+{{ config(
+    materialized='incremental'
+) }}
+
 SELECT
     *
 FROM

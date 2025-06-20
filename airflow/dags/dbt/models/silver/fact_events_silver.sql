@@ -1,6 +1,9 @@
+{{ config(
+    materialized='incremental'
+) }}
+
 SELECT
-    *,
-    '{{ run_started_at.strftime("%Y-%m-%d") }}' as loaded_at
+    *
 FROM
     {{ ref('fact_events_bronze') }} bronze
 
@@ -10,7 +13,7 @@ WHERE
         SELECT
             max(loaded_at)
         FROM
-            {{this}}
+            {{ this }}
     )
 
 {% endif %}
