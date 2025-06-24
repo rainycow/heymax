@@ -13,11 +13,11 @@ models:
       - name: event_type
         tests:
           - accepted_values:
-            values:
-              [
-                "miles_earned",
-                "like",
-                "share",
-                "reward_search",
-                "miles_redeemed",
-              ]
+              values:
+                [
+                  "miles_earned",
+                  "like",
+                  "share",
+                  "reward_search",
+                  "miles_redeemed",
+                ]
