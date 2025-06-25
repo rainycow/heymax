@@ -4,4 +4,4 @@ type: postgres
 options:
   database: events_db
   host: localhost
-  port: 5435
+  port: 5432
