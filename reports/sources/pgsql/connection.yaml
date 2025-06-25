@@ -2,6 +2,6 @@
 name: pgsql
 type: postgres
 options:
-  database: events_db
-  host: localhost
+  database: postgres
+  host: postgres
   port: 5432
