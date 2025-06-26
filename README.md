@@ -1,13 +1,17 @@
 # The Flow
 ![Flow](assets/flow.png)
 
+
 # Getting started
 1. Clone the repo by running `git clone https://github.com/rainycow/heymax.git`
 2. Create a virtual enviroment `python -m venv <env_name>`
 3. Activate virtual environment by running `source <env_name>/bin/activate`
 4. Install the required packages `pip install requirements.txt`
 
-# Setting up PostgreSQL
+
+# Creating the data models
+There are 2 ways of populating the database, either by spinning up a docker container locally and executing dbt commands against it to create the data models or triggering an Airflow dag that encapsulates both components.
+
 ## Using dbt
 
 1. Spin up a postgres container.
@@ -45,11 +49,11 @@ astro dev start
 
 ![Airflow taskgroup](assets/airflow.png)
 
-5. To stop the Airflow instance, run `astro dev stop` followed by `astro dev kill`.
+5. To stop the Airflow instance, run `astro dev stop`.
 
 
-# Spin up Evidence
-Metrics are presented in [Evidence](https://evidence.dev). 
+# Hosting the dashboard
+The metrics are presented in [Evidence](https://evidence.dev). 
 
 ## In local environment
 To start Evidence in your local environment, run the following commands.
@@ -59,7 +63,8 @@ npm run sources
 npm run dev
 ```
 
-This will open a [browser](http://localhost:3000).
+This will open a [browser](http://localhost:3000) automatically.
+
 
 ## As part of Airflow DAG
 Evidence can also be hosted using GitHub Pages via GitHub Actions.
@@ -69,9 +74,10 @@ To run the pipeline as a series of tasks from data transformation to refreshing 
 git checkout feat/refresh-evidence
 cd airflow
 astro dev start
-````
+```
 
 The dashboard is hosted [here](https://rainycow.github.io/heymax/).
+
 
 # The Data Model
 
