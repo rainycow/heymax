@@ -59,6 +59,16 @@ npm run dev
 
 This will open a [browser](http://localhost:3000).
 
+# Executing the pipeline end-to-end
+The dashboard can also be hosted using [GitHub Pages](https://rainycow.github.io/heymax/) via GitHub Actions.
+To run the pipeline end-to-end from data transformation to refreshing the dashboard, check out the branch `feat/refresh-evidence`. 
+
+```bash
+git checkout feat/refresh-evidence
+cd airflow
+astro dev start
+````
+
 
 # The Data Model
 
