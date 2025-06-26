@@ -59,6 +59,7 @@ The metrics are presented in [Evidence](https://evidence.dev).
 To start Evidence in your local environment, run the following commands.
 ```bash
 cd reports
+npm install
 npm run sources
 npm run dev
 ```
