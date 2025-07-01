@@ -69,7 +69,7 @@ This will open a [browser](http://localhost:3000) automatically.
 
 ## As part of Airflow DAG
 Evidence can also be hosted using GitHub Pages via GitHub Actions.
-To run the pipeline as a series of tasks from data transformation to refreshing the dashboard, check out the branch `feat/refresh-evidence`, spin up Airflow and triggers the dag on the UI.
+To run the pipeline as a series of tasks from data transformation to refreshing the dashboard, check out the branch `feat/refresh-evidence`, spin up Airflow and trigger the dag on the UI.
 
 ```bash
 git checkout feat/refresh-evidence
@@ -77,7 +77,7 @@ cd airflow
 astro dev start
 ```
 
-The dashboard is hosted [here](https://rainycow.github.io/heymax/).
+You'll see the dashboard [here](https://rainycow.github.io/heymax/) if the dag runs to completion successfully.
 
 
 # The Data Model
@@ -87,7 +87,7 @@ The dashboard is hosted [here](https://rainycow.github.io/heymax/).
 ## Bronze layer
 Raw data from source is saved as-is in the bronze layer. Data is always fresh in this layer.
 `event_id` is created as a surrogate key in `fact_events_bronze` as there is no natural primary key.
-A column named `loaded_at` is also added. This column allows for incremental update to the tables in the subsequent layers.
+A column named `loaded_at` is also added. This column allows for incremental update to the tables in the downstream layers.
 
 
 ## Silver layer
@@ -108,13 +108,16 @@ This layer contains curated tables optimized for dashboards and reporting. Pre-j
 ### Data quality tests
 Data quality tests or expectations help us to discover data quality issues before they cause problems downstream. More complex tests can be found on `dbt_expectations`.
 
-### Unit tests
-When classes are built in Python, use `pytest` or `unittest` to ensure that they work as expected.
+
+### Unit Testing
+If custom Python classes are created, use `pytest` or `unittest` to write tests that validate their functionality and behaviour.
+
 
 ## Improving pipeline robustness
-In Airflow, there are also ways to gracefully handle failures before the pipeline is triggered or completed. For example, when you are downloading an object from S3, you can use the `S3KeySensor` to check for presence of the object before triggering the dag.
+In Airflow, there are also ways to gracefully handle failures before the pipeline is triggered or completed. For example, if you need to download an object from S3, you can use the `S3KeySensor` to check for presence of the object as the first task of the dag.
 
-You can also configure notifications using `Notifier` in Airflow to notify data owners on dag failure.
+You can also configure notifications (success/failure) using `Notifier` in Airflow to notify data owners on dag status.
+
 
 ## Scaling
 When we're operating in a distributed cloud environment, we also have to think about disaster recovery. This means introducing redundancy in our data storage by taking snapshots of our dwh and replicate it in a different availability zone.
