@@ -113,14 +113,16 @@ Data quality tests or expectations help us to discover data quality issues befor
 If custom Python classes are created, use `pytest` or `unittest` to write tests that validate their functionality and behaviour.
 
 
-## Improving pipeline robustness
-In Airflow, there are also ways to gracefully handle failures before the pipeline is triggered or completed. For example, if you need to download an object from S3, you can use the `S3KeySensor` to check for presence of the object as the first task of the dag.
+## Improving pipeline robustness using utility operators
+Depending on where `event_time.csv` is downloaded from, we can add `Sensors` to our dag to ensure that the downstream tasks are only triggered if `event_time.csv` is available. For example, if you need to download it from S3, you can use the `S3KeySensor` to check for its presence as the first task of the dag. This means that `DbtSeedLocalOperator` will not run unless `event_time.csv` is in S3. 
 
-You can also configure notifications (success/failure) using `Notifier` in Airflow to notify data owners on dag status.
+This makes it easier to debug dags - if `Sensor` fails , it'd be clear to dag owners that the failure is due to missing source data.
+
+You can also configure notifications (success/failure) using `Notifiers` to notify dag owners on dag status. This can be integrated with the company messaging tool. For exmaple, you can set up a `SlackNotifier` to perform custom functions using `on_success_callback` and `on_failure_callback`.
 
 
 ## Scaling
-When we're operating in a distributed cloud environment, we also have to think about disaster recovery. This means introducing redundancy in our data storage by taking snapshots of our dwh and replicate it in a different availability zone.
+When we're operating in a distributed cloud environment, we have to think about disaster recovery. This means introducing redundancy in our data storage by taking snapshots of our dwh and replicate it in a different availability zone.
 
 Scaling a db or dwh in the cloud usually involves:
 - Vertical scaling: Upgrading to more powerful VMs
