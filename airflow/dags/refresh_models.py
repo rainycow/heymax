@@ -29,6 +29,7 @@ GH_PAGES_BRANCH = "gh-pages"
 
 def generate_uuid(**context):
     new_uuid = str(uuid.uuid4())
+    # pass event_id:uuid into dag
     context["ti"].xcom_push(key="event_uuid", value=new_uuid)
 
 
